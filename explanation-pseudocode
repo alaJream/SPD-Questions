@@ -1,0 +1,112 @@
+# Find the largest subarray formed by consecutive integers
+# Google Translate Icon
+# Given an integer array, find the largest subarray formed by consecutive integers. The subarray should contain all distinct values.
+
+# For example,
+
+# Input:  { 2, 0, 2, 1, 4, 3, 1, 0 }
+ 
+# Output: The largest subarray is { 0, 2, 1, 4, 3 }
+
+#pseudocode
+# For the function largest_consecutive_subarray(nums):
+# Set max_len to 0
+# Set max_subarray to an empty list
+
+# For each index i in the range of nums:
+# Set visited to an empty dictionary
+# Set dist_count to 0
+
+# For each index j in the range from i to the length of nums:
+# If nums[j] is in visited:
+# Break the inner loop
+# Else:
+# Add nums[j] to visited dictionary and set its value to True
+# Increment dist_count by 1
+
+# If dist_count equals (max value in visited - min value in visited + 1):
+# If dist_count is greater than max_len:
+# Set max_len to dist_count
+# Set max_subarray to the subarray from index i to j+1 of nums
+
+# Then return max_subarray
+
+
+def largest_consecutive_subarray(nums):
+    max_len = 0
+    max_subarray = []
+
+    for i in range(len(nums)):
+        visited = {}
+        dist_count = 0
+
+        for j in range(i, len(nums)):
+            if nums[j] in visited:
+                break
+            else:
+                visited[nums[j]] = True
+                dist_count += 1
+
+            if dist_count == (max(visited) - min(visited) + 1):
+                if dist_count > max_len:
+                    max_len = dist_count
+                    max_subarray = nums[i:j+1]
+
+    return max_subarray
+
+print(largest_consecutive_subarray([2, 0, 2, 1, 4, 3, 1, 0]))
+
+
+# STEPS
+# 1. The function accepts a list of numbers nums as input.
+
+# 2. It initializes two variables, max_len and max_subarray, 
+# to keep track of the length of the largest subarray of consecutive 
+# numbers found so far and the corresponding subarray, respectively. 
+# Initially, max_len is set to 0 and max_subarray is an empty list.
+
+
+# 3. The function then starts iterating over the list of numbers with 
+# a loop, where i is the index of the current number.
+
+
+# 4. Inside the loop, it initializes an empty dictionary visited that 
+# will be used to keep track of the numbers in the current subarray 
+# and a variable dist_count to count the number of distinct numbers 
+# in the current subarray.
+
+
+# 5. It then starts another loop, which iterates over the rest of the 
+# list starting from the current index i. In each iteration, j is the 
+# index of the current number.
+
+# 6. Inside this inner loop, it first checks if the current number 
+# nums[j] is already in the visited dictionary. If it is, that means 
+# the current number is a duplicate, so it breaks out of the inner 
+# loop because we are only interested in subarrays with distinct 
+# numbers.
+
+
+# 7. If the current number is not in the visited dictionary, it adds 
+# the number to the dictionary and increments dist_count.
+
+
+# 8. After updating the visited dictionary and dist_count, it checks 
+# if the number of distinct numbers dist_count is equal to the range 
+# of the numbers in the visited dictionary 
+# (max(visited) - min(visited) + 1). If they are equal, that means 
+# the numbers are consecutive.
+
+
+# 9. If the numbers are consecutive and dist_count is greater than 
+# max_len, it updates max_len to the current dist_count and 
+# max_subarray to the current subarray nums[i:j+1].
+
+
+# 10 After both loops finish, it returns max_subarray, which is the 
+# largest subarray of consecutive numbers.
+
+
+# When applied to the list [2, 0, 2, 1, 4, 3, 1, 0], the function 
+# returns [0, 2, 1, 4, 3], which is the largest subarray of 
+# consecutive numbers in the list.
